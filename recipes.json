@@ -1,0 +1,27 @@
+const Recipes = [
+  {
+    key: 1,
+    recipe: "Aloo Pies",
+    servings:"9",
+    method:[
+      "Mix flour, baking powder, 1/2 teaspoon salt and water; knead lightly, cover with damp cloth and allow to relax.",
+      "Boil potatoes in water until tender, peel and crush well.",
+      "Season with remaining salt, black pepper, hot pepper, ground cumin and garlic.",
+      "Divide dough into 9 balls and flatten each ball into a 4 inch circle.",
+      "Place 2 tablespoons potato mixture on half of each flattened ball; fold over and seal well to form crescent.",
+      "Fry in hot oil for a few seconds, turn over and cook until golden brown. Drain on paper towels."
+    ],
+    ingredients: [
+      "2 cups flour",
+      "2 tsp. baking powder",
+      "1 1/4 tsp. salt",
+      "3/4 cup water (approx)",
+      "1 lb potatoes",
+      "1/2 tsp. black pepper (hot pepper for taste)",
+      "1 tsp. roasted ground cumin (geera)",
+      "1 tsp. minced garlic",
+      "1 cup oil for deep frying"
+    ]
+  },
+
+];
