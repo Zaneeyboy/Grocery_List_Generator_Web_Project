@@ -7,11 +7,13 @@
 auth.onAuthStateChanged(user=>{
     if(user){
         //get data
-        db.collection("groceryList").get().then(snapshot => {
-            //setUpGuides(snapshot.docs);
-            fetchGroceryLists(snapshot.docs);
-            setupUI(user);
-        });
+            db.collection("groceryList").onSnapshot(snapshot => {
+                //setUpGuides(snapshot.docs);
+                fetchGroceryLists(snapshot.docs);
+                setupUI(user);
+            }).catch(err =>{
+                console.log(err.message);
+            });  
     }
     else{
         fetchGroceryLists([]);
