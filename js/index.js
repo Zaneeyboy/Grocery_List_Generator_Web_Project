@@ -41,18 +41,27 @@ const setupUI = (user)=>{
     if(user){
 
 
-        //account info
-        const email = user.email;
+        db.collection('users').doc(user.uid).get().then(doc=>{
+            //account info
+            const email = user.email;
 
-        let i = document.createElement("i");
-        i.classList.add("fas");
-        i.classList.add("fa-user");
+            let i = document.createElement("i");
+            i.classList.add("fas");
+            i.classList.add("fa-user");
 
-        let div = document.createElement("div");
-        div.innerHTML="Logged in as : "+email;
+            let div = document.createElement("div");
+            div.innerHTML = "Logged in as : " + email;
 
-        accountDetails.appendChild(i);
-        accountDetails.appendChild(div);
+            accountDetails.appendChild(i);
+            accountDetails.appendChild(div);
+
+            //bio
+            let bio = document.createElement("div");
+            bio.innerHTML = doc.data().bio;
+
+            accountDetails.appendChild(bio);
+        })
+        
 
         //toggle UI elements
         loggedInLinks.forEach(item=>item.style.display="block");
@@ -62,7 +71,8 @@ const setupUI = (user)=>{
 
         accountDetails.removeChild(accountDetails.lastElementChild);
         accountDetails.removeChild(accountDetails.lastElementChild);
-        
+        accountDetails.removeChild(accountDetails.lastElementChild);
+
         //toggle UI elements
         loggedInLinks.forEach(item => item.style.display = "none");
         loggedOutLinks.forEach(item => item.style.display = "block");

@@ -11,9 +11,9 @@ auth.onAuthStateChanged(user=>{
                 //setUpGuides(snapshot.docs);
                 fetchGroceryLists(snapshot.docs);
                 setupUI(user);
-            }).catch(err =>{
+            },err=>{
                 console.log(err.message);
-            });  
+            });
     }
     else{
         fetchGroceryLists([]);
@@ -33,8 +33,12 @@ signupForm.addEventListener("submit",(e)=>{
     
     //signup user
     auth.createUserWithEmailAndPassword(email,password).then(cred=>{
-        //console.log(cred.user);
-        const modal=document.querySelector("#signupModal");
+        return db.collection('users').doc(cred.user.uid).set({
+            bio:signupForm['bio'].value
+        });
+        
+    }).then(()=>{
+        const modal = document.querySelector("#signupModal");
         signupForm.reset();
 
         //programmatically close modal somehow fml
