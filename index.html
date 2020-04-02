@@ -34,6 +34,9 @@
         <li class="nav-item">
           <a class="nav-link" href="./recipes.html">Recipes</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="logout-link" href="#">Logout</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
@@ -59,16 +62,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="modal-form">
+        <form id="login-form">
               <input class="col-sm-7 modal-input"
               name="email"
                 type="text"
                 placeholder="Email"
+                id="login-email"
+                required
               />
               <input class="col-sm-7 modal-input"
               name="password"
                 type="password"
                 placeholder="Password"
+                id="login-password"
+                required
               />
 
               <button type="submit" class="col-sm-7 btn btn-outline-dark">Login</button>
@@ -76,7 +83,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-dark">Save Changes</button>
       </div>
     </div>
   </div>
@@ -93,29 +99,34 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="modal-form">
+        <form id="signup-form">
               <input class="col-sm-7 modal-input"
               name="email"
                 type="text"
                 placeholder="Email"
+                id="signup-email"
+                required
               />
               <input class="modal-input col-sm-7"
               name="password"
                 type="password"
                 placeholder="Password"
+                id="signup-password"
+                required
               />
               <input class="modal-input col-sm-7"
               name="confirm-password"
                 type="password"
                 placeholder="Confirm Password"
+                id="signup-confirm-password"
+                required
               />
 
               <button type="submit" class="col-sm-7 btn btn-outline-dark">Register</button>
             </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-dark">Save Changes</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -199,10 +210,39 @@
       <a href="#" ><i class="social-icon fas fa-envelope"></i></a>
       <p><i class="far fa-copyright"></i>2020 GroceryRun</p>
     </div>
-    <script src="./js/index.js"></script>
+    <!-- Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+    
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBfbviOknhH7oqty6zw-JDq-U-2u4r6ct0",
+        authDomain: "groceryrun-d8bd3.firebaseapp.com",
+        databaseURL: "https://groceryrun-d8bd3.firebaseio.com",
+        projectId: "groceryrun-d8bd3",
+        storageBucket: "groceryrun-d8bd3.appspot.com",
+        messagingSenderId: "10693660064",
+        appId: "1:10693660064:web:3e6aebffb93c5e355ae8c5",
+        measurementId: "G-SE7WD9L0VL"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      //make auth and firestore references
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/index.js"></script>
   </footer>
 </body>
 
