@@ -34,17 +34,19 @@
         <li class="nav-item">
           <a class="nav-link" href="./recipes.html">Recipes</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" id="logout-link" href="#">Logout</a>
+        <li class="logged-in nav-item" style="display:none;"">
+          <a class="nav-link" href="./dashboard.html">Dashboard</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+            <a class="logged-out dropdown-item" style="display:none;" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#signupModal">Register</a>
+            <a class="logged-out dropdown-item" style="display:none;" href="#" data-toggle="modal" data-target="#signupModal">Register</a>
+            <div class="dropdown-divider"></div>
+            <a class="logged-in dropdown-item" style="display:none;" id="logout-link" href="#">Logout</a>
           </div>
         </li>
       </ul>

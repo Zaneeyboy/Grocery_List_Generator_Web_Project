@@ -1,19 +1,21 @@
 //using jshint:esversion:9
 
-//get data
-db.collection("groceryList").get().then(snapshot=>{
-    console.log(snapshot.docs);
-    //setUpGuides(snapshot.docs);
-});
+
 
 
 //listen for auth status changes
 auth.onAuthStateChanged(user=>{
     if(user){
-        console.log("user logged in:",user);
+        //get data
+        db.collection("groceryList").get().then(snapshot => {
+            //setUpGuides(snapshot.docs);
+            fetchGroceryLists(snapshot.docs);
+            setupUI(user);
+        });
     }
     else{
-        console.log("user logged out");
+        fetchGroceryLists([]);
+        setupUI();
     }
 });
 
