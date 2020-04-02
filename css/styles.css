@@ -1,3 +1,107 @@
-body{
-  background-color: red;
+
+body {
+  font-family: "Montserrat";
+  text-align: center;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat-Bold";
+}
+
+p {
+  color: #8f8f8f;
+}
+
+.signup-button {
+  margin: 5% 3% 5% 0;
+}
+
+.navbar {
+  padding: 1.5% 15% 1.5%;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: "Montserrat-Light";
+}
+
+
+/* Modal */
+.modal-input{
+  /* margin: 2% 1.5% 4% 0; */
+  margin-bottom:3%;
+}
+
+.container-fluid{
+  padding: 7% 15%;
+}
+
+
+.colored-section{
+  background-color: #b6f7c1;
+}
+
+
+/* Testimonials */
+#testimonials{
+  padding:3% 7%;
+  position:relative;
+  z-index: 1;
+}
+
+.testimonial-text {
+  font-size: 2rem;
+  line-height: 1.5;
+  font-family: 'Montserrat-Light', sans-serif;
+}
+
+.testimonial-image {
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+
+/* Footer */
+.social-icon {
+  color:#8f8f8f;
+  margin: 20px 10px;
+}
+.social-icon:hover{
+  color:#23272B;
+}
+
+/* Title Image */
+@media (max-width: 1028px) {
+  #title {
+    text-align: center;
+  }
+
+  .title-image {
+    position: static;
+    transform: rotate(0deg);
+  }
+}
+
+.title-image {
+  width: 60%;
+  transform: rotate(15deg);
+  /* position: absolute;
+  z-index: 0; */
+  right: 30%;
+}
+
+/*font-family: 'Montserrat', sans-serif;
+font-family: 'Ubuntu', sans-serif;
+font-family: 'Liu Jian Mao Cao', cursive;
+font-family: 'Dancing Script', cursive;*/
