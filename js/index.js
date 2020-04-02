@@ -32,7 +32,8 @@ const fetchGroceryLists = (data) => {
 
 const loggedOutLinks = document.querySelectorAll(".logged-out");
 const loggedInLinks = document.querySelectorAll(".logged-in");
-const accountDetails = document.querySelector("#account-info");
+const userEmail = document.querySelector("#user-email");
+const bio = document.querySelector("#user-bio");
 
 const setupUI = (user) => {
   if (user) {
@@ -42,22 +43,21 @@ const setupUI = (user) => {
       //account info
       const email = user.email;
 
-      let i = document.createElement("i");
-      i.classList.add("fas");
-      i.classList.add("fa-user");
+      // let i = document.createElement("i");
+      // i.classList.add("fas");
+      // i.classList.add("fa-user");
+      //
+      // let div = document.createElement("div");
+      // div.innerHTML = "Logged in as : " + email;
+      //
+      // accountDetails.appendChild(i);
+      // accountDetails.appendChild(div);
 
-      let div = document.createElement("div");
-      div.innerHTML = "Logged in as : " + email;
-
-      accountDetails.appendChild(i);
-      accountDetails.appendChild(div);
-
-      //bio
-      let bio = document.createElement("div");
+      userEmail.innerHTML = "Logged in as : "+email;
       bio.innerHTML = doc.data().bio;
 
-      accountDetails.appendChild(bio);
-    })
+
+    });
 
 
     //toggle UI elements
@@ -65,9 +65,12 @@ const setupUI = (user) => {
     loggedOutLinks.forEach(item => item.style.display = "none");
   } else {
 
-    accountDetails.removeChild(accountDetails.lastElementChild);
-    accountDetails.removeChild(accountDetails.lastElementChild);
-    accountDetails.removeChild(accountDetails.lastElementChild);
+    //accountDetails.removeChild(accountDetails.lastElementChild);
+    //accountDetails.removeChild(accountDetails.lastElementChild);
+    //accountDetails.removeChild(accountDetails.lastElementChild);
+
+    userEmail.innerHTML="";
+    bio.innerHTML="";
 
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = "none");
