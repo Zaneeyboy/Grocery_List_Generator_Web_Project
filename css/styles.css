@@ -1,4 +1,3 @@
-
 body {
   font-family: "Montserrat";
   text-align: center;
@@ -35,27 +34,24 @@ p {
   font-family: "Montserrat-Light";
 }
 
-
 /* Modal */
-.modal-input{
+.modal-input {
   /* margin: 2% 1.5% 4% 0; */
-  margin-bottom:3%;
+  margin-bottom: 3%;
 }
 
-.container-fluid{
+.container-fluid {
   padding: 7% 15%;
 }
 
-
-.colored-section{
+.colored-section {
   background-color: #b6f7c1;
 }
 
-
 /* Testimonials */
-#testimonials{
-  padding:3% 7%;
-  position:relative;
+#testimonials {
+  padding: 3% 7%;
+  position: relative;
   z-index: 1;
 }
 
@@ -71,14 +67,14 @@ p {
   margin: 20px;
 }
 
-
 /* Footer */
 .social-icon {
-  color:#8f8f8f;
+  color: #8f8f8f;
   margin: 20px 10px;
 }
-.social-icon:hover{
-  color:#23272B;
+
+.social-icon:hover {
+  color: #23272B;
 }
 
 /* Title Image */

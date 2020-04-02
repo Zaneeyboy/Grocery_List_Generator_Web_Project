@@ -1,5 +1,3 @@
-
-
 /*
 const setUpGuides = (data)=>{
     let html='';
@@ -20,16 +18,15 @@ const setUpGuides = (data)=>{
 
 
 //Render groceryLists to screen somewhere fml
-const fetchGroceryLists=(data)=>{
+const fetchGroceryLists = (data) => {
 
-    if(data.length){
-    data.forEach(doc=>{
-        console.log(doc.data());
+  if (data.length) {
+    data.forEach(doc => {
+      console.log(doc.data());
     });
-    }
-    else{
-        console.log("Login to view grocery lists");
-    }
+  } else {
+    console.log("Login to view grocery lists");
+  }
 }
 
 
@@ -37,44 +34,43 @@ const loggedOutLinks = document.querySelectorAll(".logged-out");
 const loggedInLinks = document.querySelectorAll(".logged-in");
 const accountDetails = document.querySelector("#account-info");
 
-const setupUI = (user)=>{
-    if(user){
+const setupUI = (user) => {
+  if (user) {
 
 
-        db.collection('users').doc(user.uid).get().then(doc=>{
-            //account info
-            const email = user.email;
+    db.collection('users').doc(user.uid).get().then(doc => {
+      //account info
+      const email = user.email;
 
-            let i = document.createElement("i");
-            i.classList.add("fas");
-            i.classList.add("fa-user");
+      let i = document.createElement("i");
+      i.classList.add("fas");
+      i.classList.add("fa-user");
 
-            let div = document.createElement("div");
-            div.innerHTML = "Logged in as : " + email;
+      let div = document.createElement("div");
+      div.innerHTML = "Logged in as : " + email;
 
-            accountDetails.appendChild(i);
-            accountDetails.appendChild(div);
+      accountDetails.appendChild(i);
+      accountDetails.appendChild(div);
 
-            //bio
-            let bio = document.createElement("div");
-            bio.innerHTML = doc.data().bio;
+      //bio
+      let bio = document.createElement("div");
+      bio.innerHTML = doc.data().bio;
 
-            accountDetails.appendChild(bio);
-        })
-        
+      accountDetails.appendChild(bio);
+    })
 
-        //toggle UI elements
-        loggedInLinks.forEach(item=>item.style.display="block");
-        loggedOutLinks.forEach(item => item.style.display = "none"); 
-    }
-    else{
 
-        accountDetails.removeChild(accountDetails.lastElementChild);
-        accountDetails.removeChild(accountDetails.lastElementChild);
-        accountDetails.removeChild(accountDetails.lastElementChild);
+    //toggle UI elements
+    loggedInLinks.forEach(item => item.style.display = "block");
+    loggedOutLinks.forEach(item => item.style.display = "none");
+  } else {
 
-        //toggle UI elements
-        loggedInLinks.forEach(item => item.style.display = "none");
-        loggedOutLinks.forEach(item => item.style.display = "block");
-    }
+    accountDetails.removeChild(accountDetails.lastElementChild);
+    accountDetails.removeChild(accountDetails.lastElementChild);
+    accountDetails.removeChild(accountDetails.lastElementChild);
+
+    //toggle UI elements
+    loggedInLinks.forEach(item => item.style.display = "none");
+    loggedOutLinks.forEach(item => item.style.display = "block");
+  }
 }

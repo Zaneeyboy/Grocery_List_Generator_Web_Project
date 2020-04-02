@@ -15,7 +15,7 @@
   <script src="https://kit.fontawesome.com/4b05c6512b.js" crossorigin="anonymous"></script>
 
   <!--Fonts-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
         <li class="nav-item">
           <a class="active nav-link" href="#">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="logged-out nav-item" style="display:none;">
           <a class="nav-link" href="./recipes.html">Recipes</a>
         </li>
         <li class="logged-in nav-item" style="display:none;">
@@ -44,7 +44,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
             <div id="account-info" class="logged-in dropdown-item" style="display:none; text-align: center;">
-              
+
             </div>
 
             <a class="logged-out dropdown-item" style="display:none;" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
@@ -58,99 +58,64 @@
     </div>
   </nav>
 
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="login-modal-title">Login to your Account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="login-form">
-              <input class="col-sm-7 modal-input"
-              name="email"
-                type="text"
-                placeholder="Email"
-                id="login-email"
-                required
-              />
-              <input class="col-sm-7 modal-input"
-              name="password"
-                type="password"
-                placeholder="Password"
-                id="login-password"
-                required
-              />
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="login-modal-title">Login to your Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="login-form">
+            <input class="col-sm-7 modal-input" name="email" type="text" placeholder="Email" id="login-email" required />
+            <input class="col-sm-7 modal-input" name="password" type="password" placeholder="Password" id="login-password" required />
 
-              <button type="submit" class="col-sm-7 btn btn-outline-dark">Login</button>
-            </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+            <button type="submit" class="col-sm-7 btn btn-outline-dark">Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Register Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="login-modal-title">Register</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="signup-form">
-              <input class="col-sm-7 modal-input"
-              name="email"
-                type="text"
-                placeholder="Email"
-                id="signup-email"
-                required
-              />
-              <input class="modal-input col-sm-7"
-              name="password"
-                type="password"
-                placeholder="Password"
-                id="signup-password"
-                required
-              />
-              <input class="modal-input col-sm-7"
-              name="confirm-password"
-                type="password"
-                placeholder="Confirm Password"
-                id="signup-confirm-password"
-                required
-              />
-              <input class="col-sm-7 modal-input" 
-              name="bio" 
-              type="text" 
-              placeholder="One line about yourself" 
-              id="bio" 
-              required />
+  <!-- Register Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="Login Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="login-modal-title">Register</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="signup-form">
+            <input class="col-sm-7 modal-input" name="email" type="text" placeholder="Email" id="signup-email" required />
+            <input class="modal-input col-sm-7" name="password" type="password" placeholder="Password" id="signup-password" required />
+            <input class="modal-input col-sm-7" name="confirm-password" type="password" placeholder="Confirm Password" id="signup-confirm-password" required />
+            <input class="col-sm-7 modal-input" name="bio" type="text" placeholder="One line about yourself" id="bio" required />
 
-              <button type="submit" class="col-sm-7 btn btn-outline-dark">Register</button>
-            </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="col-sm-7 btn btn-outline-dark">Register</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
   <main>
     <!--Title Section-->
     <section class="container-fluid" id="title">
-      <div class="row" >
+      <div class="row">
         <div class="col-lg-6">
           <h1 class="">GroceryRun</h1>
           <p class="lead">Find fun but deliciously simple recipes for easy to make dishes</p>
@@ -180,7 +145,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active container-fluid">
             <h2 class="testimonial-text">Using GroceryRun has saved me so much time. I don't have those situations where I'm looking to make
-                                        something as I come back from the grocery only to realize that I've run out of an ingredient.</h2>
+              something as I come back from the grocery only to realize that I've run out of an ingredient.</h2>
             <img class="testimonial-image" src="images/puppet.jpg" alt="puppet-profile">
             <em>Santana Puppet, Santa Cruz</em>
           </div>
@@ -207,8 +172,8 @@
     <!--Call To Action-->
     <section class="" id="cta">
       <div class="container-fluid">
-          <h3>Follow along to simple recipes on GroceryRun starting today!</h3>
-          <button class="signup-button btn btn-lg btn-dark" type="button" data-toggle="modal" data-target="#signupModal"><i class="far fa-user-circle"></i> Sign up now!</button>
+        <h3>Follow along to simple recipes on GroceryRun starting today!</h3>
+        <button class="signup-button btn btn-lg btn-dark" type="button" data-toggle="modal" data-target="#signupModal"><i class="far fa-user-circle"></i> Sign up now!</button>
       </div>
     </section>
 
@@ -217,10 +182,10 @@
   <!--Footer-->
   <footer class="colored-section" id="footer">
     <div class="container-fluid">
-      <a href="#" ><i class="social-icon fab fa-facebook-f"></i></a>
-      <a href="#" ><i class="social-icon fab fa-twitter"></i></a>
+      <a href="#"><i class="social-icon fab fa-facebook-f"></i></a>
+      <a href="#"><i class="social-icon fab fa-twitter"></i></a>
       <a href="#"><i class="social-icon fab fa-instagram"></i></a>
-      <a href="#" ><i class="social-icon fas fa-envelope"></i></a>
+      <a href="#"><i class="social-icon fas fa-envelope"></i></a>
       <p><i class="far fa-copyright"></i>2020 GroceryRun</p>
     </div>
     <!-- Bootstrap Scripts -->
@@ -233,7 +198,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
-    
+
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
