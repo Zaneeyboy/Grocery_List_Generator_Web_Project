@@ -45,7 +45,11 @@ p {
 }
 
 .colored-section {
-  background-color: #b6f7c1;
+  background-color: #ffdc34; /*b6f7c1;*/
+}
+
+.dark-section{
+  background-color:#343A40;
 }
 
 /* Testimonials */
@@ -74,7 +78,11 @@ p {
 }
 
 .social-icon:hover {
-  color: #23272B;
+  color: #ffd31d;/*#23272B;*/
+}
+
+.footer-copyright{
+  color: #f3c623;
 }
 
 /* Title Image */

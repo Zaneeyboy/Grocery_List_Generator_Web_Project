@@ -3,7 +3,7 @@
 auth.onAuthStateChanged(user => {
   if (user) {
     //get data
-    db.collection("groceryList").onSnapshot(snapshot => {
+    db.collection("recipeList").onSnapshot(snapshot => {
 
       //fetchGroceryLists(snapshot.docs);
       setupUI(user);

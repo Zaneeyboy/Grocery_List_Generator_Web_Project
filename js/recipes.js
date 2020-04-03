@@ -1,22 +1,19 @@
-//using jshint:esversion:6
-
-
-
 
 //listen for auth status changes
 auth.onAuthStateChanged(user => {
   if (user) {
     //get data
     db.collection("recipeList").onSnapshot(snapshot => {
-      //setUpGuides(snapshot.docs);
-      fetchGroceryLists(snapshot.docs);
+
+      //fetchGroceryLists(snapshot.docs);
       setupUI(user);
-      console.log(snapshot);
+      console.log(snapshot.docs);
     }, err => {
       console.log(err.message);
     });
   } else {
-    fetchGroceryLists([]);
+    //fetchGroceryLists([]);
+    console.log("Logged Out");
     setupUI();
   }
 });
@@ -46,13 +43,6 @@ signupForm.addEventListener("submit", (e) => {
   });
 });
 
-//logout method
-const logout = document.querySelector("#logout-link");
-logout.addEventListener("click", (e) => {
-  e.preventDefault();
-  auth.signOut();
-});
-
 //login method
 const loginForm = document.querySelector("#login-form");
 loginForm.addEventListener("submit", (e) => {
@@ -69,4 +59,41 @@ loginForm.addEventListener("submit", (e) => {
 
     //programmatically close login modal fml
   });
+});
+
+
+
+//Setting up user interface
+const loggedOutLinks = document.querySelectorAll(".logged-out");
+const loggedInLinks = document.querySelectorAll(".logged-in");
+const userEmail = document.querySelector("#user-email");
+const bio = document.querySelector("#user-bio");
+
+const setupUI = (user) => {
+  if (user) {
+    db.collection('users').doc(user.uid).get().then(doc => {
+      //account info
+      const email = user.email;
+
+      userEmail.innerHTML = "Logged in as : "+email;
+      bio.innerHTML = doc.data().bio;
+    });
+    //toggle UI elements
+    loggedInLinks.forEach(item => item.style.display = "block");
+    loggedOutLinks.forEach(item => item.style.display = "none");
+  } else {
+    userEmail.innerHTML="";
+    bio.innerHTML="";
+
+    //toggle UI elements
+    loggedInLinks.forEach(item => item.style.display = "none");
+    loggedOutLinks.forEach(item => item.style.display = "block");
+  }
+}
+
+//logout method
+const logout = document.querySelector("#logout-link");
+logout.addEventListener("click", (e) => {
+  e.preventDefault();
+  auth.signOut();
 });

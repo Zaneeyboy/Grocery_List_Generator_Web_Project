@@ -10,6 +10,7 @@
 
   <!--Stylesheets-->
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
 
   <!--Font Awesome-->
   <script src="https://kit.fontawesome.com/4b05c6512b.js" crossorigin="anonymous"></script>
@@ -22,7 +23,7 @@
 
   <!--Navbar-->
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" id="navbar-brand" href="">GroceryRun</a>
+    <a class="navbar-brand" id="navbar-brand" href="./index.html" style="color: #ffdc34;">GroceryRun</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -62,16 +63,103 @@
 
 <main>
 
+  <section class="container-fluid">
+    <div class="row">
+      
+      <div class="col-lg-3" id="recipe-list-group">
+        <div class="card border-dark">
+          <div class="card-header">
+            Recipe List
+          </div>
+          <ul class="list-group list-group-flush" id="recipe-list">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card mb-3">
+          <img src="./images/making a new db entry.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Garlic </h5>
+            <p class="card-text">Ingredients listing
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Pellentesque adipiscing commodo elit at imperdiet dui.
+            </p>
+            <p class="card-text">Servings and time to cook</p>
+          </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3" id="your-recipes">
+        <div class="card border-dark">
+          <div class="card-header">
+            Your Recipes
+          </div>
+          <ul class="list-group list-group-flush" id="your-recipe-list">
+            <li class="list-group-item"><i class=" close-btn fas fa-times"></i> Cras justo odio</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Dapibus ac facilisis in</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+            <li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li><li class="list-group-item"><i class="close-btn fas fa-times"></i> Vestibulum at eros</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" id="steps">
+        <h3>Steps</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+          et
+          dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+          et
+          dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+      </div>
+    </div>
+    
+  </section>
+
+  <section class="container-fluid colored-section">
+    This is where the user can logout, generate their grocery list, view their ingredients(keep track of their
+    ingredients) and enter what ingredients they have
+  </section>
+
 </main>
 
   <!--Footer-->
-  <footer class="colored-section" id="footer">
+  <footer class="dark-section" id="footer">
     <div class="container-fluid">
       <a href="#"><i class="social-icon fab fa-facebook-f"></i></a>
       <a href="#"><i class="social-icon fab fa-twitter"></i></a>
       <a href="#"><i class="social-icon fab fa-instagram"></i></a>
       <a href="#"><i class="social-icon fas fa-envelope"></i></a>
-      <p><i class="far fa-copyright"></i>2020 GroceryRun</p>
+      <p class="footer-copyright"><i class="far fa-copyright"></i>2020 GroceryRun</p>
     </div>
     <!-- Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
