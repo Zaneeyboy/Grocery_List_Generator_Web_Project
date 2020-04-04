@@ -1,0 +1,26 @@
+/* Your Recipes */
+.card {
+    padding: 3%;
+
+}
+
+.scrollable {
+    text-align: left;
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.close-btn {
+    color: red;
+}
+
+
+/* Recipe List */
+
+
+/*Main Content*/
+.card-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}

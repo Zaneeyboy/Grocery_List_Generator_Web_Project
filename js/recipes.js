@@ -1,20 +1,21 @@
+//using jshint esversion:6;
+
 
 //listen for auth status changes
 auth.onAuthStateChanged(user => {
-  if (user) {
-    //get data
-    db.collection("recipeList").onSnapshot(snapshot => {
-
-      //fetchGroceryLists(snapshot.docs);
+  if (user) { //user should not be able to acces this page if logged in but should be able to see the recipeList
       setupUI(user);
       console.log(snapshot.docs);
-    }, err => {
+  } else {
+
+    //get data from recipeList collection
+    db.collection("recipeList").onSnapshot(snapshot=>{
+      makeRecipeList(snapshot.docs);
+      setupUI();
+      console.log("Logged Out");
+    },err=>{
       console.log(err.message);
     });
-  } else {
-    //fetchGroceryLists([]);
-    console.log("Logged Out");
-    setupUI();
   }
 });
 
@@ -75,21 +76,21 @@ const setupUI = (user) => {
       //account info
       const email = user.email;
 
-      userEmail.innerHTML = "Logged in as : "+email;
+      userEmail.innerHTML = "Logged in as : " + email;
       bio.innerHTML = doc.data().bio;
     });
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = "block");
     loggedOutLinks.forEach(item => item.style.display = "none");
   } else {
-    userEmail.innerHTML="";
-    bio.innerHTML="";
+    userEmail.innerHTML = "";
+    bio.innerHTML = "";
 
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = "none");
     loggedOutLinks.forEach(item => item.style.display = "block");
   }
-}
+};
 
 //logout method
 const logout = document.querySelector("#logout-link");
@@ -97,3 +98,16 @@ logout.addEventListener("click", (e) => {
   e.preventDefault();
   auth.signOut();
 });
+
+
+const recipeList = document.querySelector("#recipe-list");  
+const mealImg = document.querySelector("#meal-img");
+const mealTitle = document.querySelector("#meal-title");
+const mealDescription = document.querySelector("#meal-description");
+const ingredients = document.querySelector("#ingredients");
+const steps = document.querySelector("#steps");
+
+
+function makeRecipeList(doc){
+  console.log(doc);
+}

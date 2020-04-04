@@ -9,14 +9,14 @@ auth.onAuthStateChanged(user => {
     //get data
     db.collection("recipeList").onSnapshot(snapshot => {
       //setUpGuides(snapshot.docs);
-      fetchGroceryLists(snapshot.docs);
+      //fetchGroceryLists(snapshot.docs);
       setupUI(user);
       console.log(snapshot);
     }, err => {
       console.log(err.message);
     });
   } else {
-    fetchGroceryLists([]);
+    //fetchGroceryLists([]);
     setupUI();
   }
 });

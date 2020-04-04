@@ -10,6 +10,7 @@
 
   <!--Stylesheets-->
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/recipes.css">
 
   <!--Font Awesome-->
   <script src="https://kit.fontawesome.com/4b05c6512b.js" crossorigin="anonymous"></script>
@@ -112,19 +113,81 @@
     </div>
   </div>
 
-<main class="container-fluid">
-<div class="row">
+<main>
+<section class="container-fluid">
+  <div class="row">
 
-  <!--Sidebar Scroll-->
-  <div class="col-md-3">
-    Hello world
+    <div class="col-lg-4" id="recipe-list-group">
+      <div class="card border-dark">
+        <div class="card-header">
+          Recipe List
+        </div>
+        <ul class="list-group list-group-flush scrollable" id="recipe-list">
+          <li class="list-group-item">Cras justo odio</li>
+        </ul>
+      </div>
     </div>
 
-    <!--Main Content-->
-    <div class="col-md-9">
-      I am the main content
+    <div class="col-lg-7">
+      <div class="card mb-3">
+        <img src="./images/making a new db entry.png" class="card-img-top" alt="..." id="meal-img">
+        <div class="card-body">
+          <h5 class="card-title" id="meal-title">Garlic </h5>
+          <p class="card-text" id="meal-description">Meal Description
+          </p>
+        </div>
       </div>
+    </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-4" id="ingredients-container">
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Ingredients</h5>
+          <div id="ingredients">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text">Lorem ipsum dolor sit amet</p>
+            <p class="card-text">Lorem ipsum dolor sit amet</p>
+            <p class="card-text">Lorem ipsum dolor sit amet</p>
+            <p class="card-text">Lorem ipsum dolor sit amet</p>
+            <p class="card-text">Lorem ipsum dolor sit amet,</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8 " id="step-container">
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Steps</h5>
+          <div id="steps">
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et
+                dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et
+                dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et
+                dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore
+                et
+                dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore
+                et
+                dolore magna aliqua. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet.</p>
+          </div> 
+        </div>
+    </div>
+
+
+
+
+  </div>
+  </section>
 </main>
 
   <!--Footer-->
@@ -136,6 +199,9 @@
       <a href="#"><i class="social-icon fas fa-envelope"></i></a>
       <p class="footer-copyright"><i class="far fa-copyright"></i>2020 GroceryRun</p>
     </div>
+
+    <!--JQuery Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
