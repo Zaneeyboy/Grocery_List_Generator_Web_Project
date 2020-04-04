@@ -7,14 +7,14 @@
 auth.onAuthStateChanged(user => {
   if (user) {
     //get data
-    db.collection("recipeList").onSnapshot(snapshot => {
+    //db.collection("recipeList").onSnapshot(snapshot => {
       //setUpGuides(snapshot.docs);
       //fetchGroceryLists(snapshot.docs);
       setupUI(user);
-      console.log(snapshot);
-    }, err => {
-      console.log(err.message);
-    });
+     // console.log(snapshot);
+    //}, err => {
+     // console.log(err.message);
+    //});
   } else {
     //fetchGroceryLists([]);
     setupUI();

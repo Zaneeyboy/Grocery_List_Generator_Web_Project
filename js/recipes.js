@@ -107,7 +107,64 @@ const mealDescription = document.querySelector("#meal-description");
 const ingredients = document.querySelector("#ingredients");
 const steps = document.querySelector("#steps");
 
+let database=[];
+const makeRecipeList = (data) => {
+  
+  if (data.length) {
+    data.forEach(doc => {
+      database.push(doc.data());
+      const dat = doc.data();
+      addToRecipeList(dat.name); //Adding item to recipeList dropdown
+    });
+  } else {
+    console.log("Error occurred while pulling from recipeList collection");
+  }
+  setRecipe(database[0]);
+}
 
-function makeRecipeList(doc){
-  console.log(doc);
+
+function setRecipe(data){
+  mealImg.src=data.url;
+  mealTitle.innerHTML=data.name;
+  mealDescription.innerHTML=data.description;
+  removeIngredientsAndSteps();
+  data.ingredients.forEach(ing=>{
+    let p = document.createElement("p");
+    p.classList.add("card-text");
+    p.innerHTML=ing;
+    ingredients.appendChild(p);
+  });
+  data.method.forEach(meth=>{
+    let s = document.createElement("p");
+    s.classList.add("card-text");
+    s.innerHTML=meth;
+    steps.appendChild(s);
+  });
+  removeIngredientsAndSteps();
+}
+
+function removeIngredientsAndSteps(){
+
+  var child = ingredients.lastElementChild;//get last child
+  while (child) {
+    ingredients.removeChild(child);
+    child = ingredients.lastElementChild; 
+  }
+  child=steps.lastElementChild;
+  while(child){
+    steps.removeChild(child);
+    child=steps.lastElementChild;
+  }
+}
+
+const addToRecipeList=(name)=>{
+  let liTag = document.createElement("li");
+  liTag.classList.add("list-group-item");
+  liTag.innerHTML=name;
+  liTag.addEventListener("click",()=>{
+    const itemName=liTag.innerHTML;
+    console.log(itemName);
+    //set it so that you pull data from the variable database and set the content to the screen on click
+  });
+  recipeList.appendChild(liTag);
 }
