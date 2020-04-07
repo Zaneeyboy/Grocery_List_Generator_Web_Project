@@ -63,7 +63,6 @@ loginForm.addEventListener("submit", (e) => {
 });
 
 
-
 //Setting up user interface
 const loggedOutLinks = document.querySelectorAll(".logged-out");
 const loggedInLinks = document.querySelectorAll(".logged-in");

@@ -2,16 +2,14 @@
 
 
 //listen for auth status changes
+let userID;
 auth.onAuthStateChanged(user => {
   if (user) { //user should  be able to acces this page if logged in and should be able to see recipeList and their grocery List
+    userID=user.uid;
+    setupUI(user);//conditionally render UI
+    setUpYourRecipeList(userID);
     db.collection("recipeList").onSnapshot(snapshot=>{ //get recipeList
-      
       makeRecipeList(snapshot.docs);//render list
-
-      //set up the user's recipe collection
-      //set up the user's grocery list collection
-
-      setupUI(user);//conditionally render UI
     },err=>{
       console.log(err.message);
     });
@@ -20,7 +18,6 @@ auth.onAuthStateChanged(user => {
       console.log("Logged Out");
   }
 });
-
 
 //Setting up user interface
 const loggedOutLinks = document.querySelectorAll(".logged-out");
@@ -36,7 +33,9 @@ const setupUI = (user) => {
 
       userEmail.innerHTML = "Logged in as : " + email;
       bio.innerHTML = doc.data().bio;
+      console.log(doc.data());
     });
+    
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = "block");
     loggedOutLinks.forEach(item => item.style.display = "none");
@@ -64,11 +63,12 @@ const mealTitle = document.querySelector("#meal-title");
 const mealDescription = document.querySelector("#meal-description");
 const ingredients = document.querySelector("#ingredients");
 const steps = document.querySelector("#steps");
+const button = document.querySelector("#add-button");
 
 let database = [];
-const makeRecipeList = (data) => {
 
-  if (data.length) {
+const makeRecipeList = (data) => { //creates recipe list
+  if (data.length) { //makes sure the database has at least 1 element
     data.forEach(doc => {
       let item = doc.data();
       if (item.name.includes("&")) {
@@ -79,47 +79,14 @@ const makeRecipeList = (data) => {
       database.push(item);
       addToRecipeList(item.name); //Adding item to recipeList dropdown
     });
-  } else {
+  } 
+  else { //means firebase database was empty
     console.log("Error occurred while pulling from recipeList collection");
   }
-
-  setRecipe(database[0]);
+  setRecipe(database[0]); //default recipe rendered when page is first loaded
 }
 
-
-function setRecipe(data) { //Adds a recipe's data by creating html elements and rendering them to the page
-  mealImg.src = data.url;
-  mealTitle.innerHTML = data.name;
-  mealDescription.innerHTML = data.description;
-  removeIngredientsAndSteps();
-  data.ingredients.forEach(ing => {
-    let p = document.createElement("p");
-    p.classList.add("card-text");
-    p.innerHTML = ing;
-    ingredients.appendChild(p);
-  });
-  data.method.forEach(meth => {
-    let s = document.createElement("p");
-    s.classList.add("card-text");
-    s.innerHTML = meth;
-    steps.appendChild(s);
-  });
-}
-
-function removeIngredientsAndSteps() { //clears ingredient and step elements from the page to make way for another recipe's data
-
-  var child = ingredients.lastElementChild;//get last child
-  while (child) {
-    ingredients.removeChild(child);
-    child = ingredients.lastElementChild;
-  }
-  child = steps.lastElementChild;
-  while (child) {
-    steps.removeChild(child);
-    child = steps.lastElementChild;
-  }
-}
-
+//adds all recipes to list of recipes
 const addToRecipeList = (name) => {
   let liTag = document.createElement("li");
   liTag.classList.add("list-group-item");
@@ -132,6 +99,67 @@ const addToRecipeList = (name) => {
   recipeList.appendChild(liTag);
 }
 
+function setRecipe(data) { //Renders a recipe's data by creating html elements and rendering them to the page
+  mealImg.src = data.url; //image for cover
+  mealTitle.innerHTML = data.name;
+  mealDescription.innerHTML = data.description;
+  let pos = binarySearch(data.name,database);
+
+  removeIngredientsAndSteps(); //clears ingredients and steps so another recipe can be rendered to the page
+  removeAddToRecipesButton();
+
+  let btn = document.createElement("button");
+  btn.classList.add("btn");
+  btn.classList.add("btn-outline-primary");
+  btn.innerText = "Add to your recipe list";
+  button.appendChild(btn);
+
+  console.log(userID);
+
+    btn.addEventListener("click",()=>{//adds item to user's recipe collection from button click
+     //put flag here to ensure only one of each recipe was added to the list
+     db.collection("users").doc(userID).collection("yourRecipes").doc().set({
+       name:database[pos].name,
+       ingredients:database[pos].ingredients,
+       quantity:1,
+       steps:database[pos].method,
+       description: database[pos].description
+     });
+   });
+
+  data.ingredients.forEach(ing => { //renders each ingredient to the UI
+    let p = document.createElement("p");
+    p.classList.add("card-text");
+    p.innerHTML = ing;
+    ingredients.appendChild(p);
+  });
+
+  data.method.forEach(meth => { //renders each step to the UI
+    let s = document.createElement("p");
+    s.classList.add("card-text");
+    s.innerHTML = meth;
+    steps.appendChild(s);
+  });
+}
+
+function removeIngredientsAndSteps() { //clears ingredient and step elements from the page to make way for another recipe's data
+  var child = ingredients.lastElementChild;//get last child
+  while (child) {
+    ingredients.removeChild(child);
+    child = ingredients.lastElementChild;
+  }
+  child = steps.lastElementChild;
+  while (child) {
+    steps.removeChild(child);
+    child = steps.lastElementChild;
+  }
+}
+
+function removeAddToRecipesButton(){ //removes add to recipes button from the screen to make way for another recipe's button
+  if(button.firstElementChild){
+    button.removeChild(button.firstElementChild);
+  }
+}
 
 //This function finds the name of the recipe in the database and returns the index
 function binarySearch(value, database) {
@@ -154,3 +182,65 @@ function binarySearch(value, database) {
   }
   return position;
 }
+
+
+const yourRecipes = document.querySelector("#your-recipe-list");
+const yourRecipeFooter = document.querySelector("#your-recipe-footer");
+
+//Gets Recipes from yourRecipes collection and renders them to the UI
+const setUpYourRecipeList = (userID)=>{
+  db.collection("users").doc(userID).collection("yourRecipes").orderBy("name").onSnapshot(snapshot => {
+     let changes = snapshot.docChanges();
+
+     changes.forEach(change=>{
+       if (change.type == "added") {//gets change type and renders element to the page if type is added
+         //create element and render to the screen
+         addRecipe(change.doc, userID);
+       }
+       else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
+        //remove element from dom 
+        let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
+        yourRecipes.removeChild(li);
+      }
+    })
+  });
+}
+
+const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of the page
+  let liTag = document.createElement("li");
+  liTag.classList.add("list-group-item");
+  liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
+
+  let deleteButton = document.createElement("button");
+  deleteButton.innerHTML="&times";
+  deleteButton.classList.add("close");
+
+  //deleting li from list
+  deleteButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    let id = e.target.parentElement.getAttribute("data-id");
+    db.collection("users").doc(userID).collection("yourRecipes").doc(id).delete();
+      let li = yourRecipes.querySelector("[data-id=" + id + "]");
+      yourRecipes.removeChild(li);
+  });
+
+  let text = document.createElement("span");
+  text.innerHTML = doc.data().name;
+
+  liTag.appendChild(deleteButton);
+  liTag.appendChild(text);
+
+  yourRecipes.appendChild(liTag);
+}
+
+
+// const refreshList = ()=>{
+//   while(yourRecipes.firstElementChild){
+//     yourRecipes.remove(yourRecipes.firstElementChild);
+//   }
+// }
+
+const logoutButton = document.querySelector("#logout-btn");
+logoutButton.addEventListener("click",()=>{
+  auth.signOut();
+})

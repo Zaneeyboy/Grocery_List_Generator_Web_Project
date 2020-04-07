@@ -83,6 +83,9 @@
             <h5 class="card-title" id="meal-title"></h5>
             <p class="card-text" id="meal-description"></p>
           </div>
+
+            <div id="add-button">
+            </div>
           </div>
       </div>
 
@@ -92,8 +95,9 @@
             Your Recipes
           </div>
           <ul class="list-group list-group-flush" id="your-recipe-list">
-            <li class="list-group-item"><i class=" close-btn fas fa-times"></i> Cras justo odio</li>
+            
           </ul>
+          <div class="card-footer" id="your-recipe-footer"></div>
         </div>
       </div>
     </div>  
@@ -122,10 +126,41 @@
   </section>
 
  
-  
   <section class="container-fluid colored-section">
-    This is where the user can logout, generate their grocery list, view their ingredients(keep track of their
-    ingredients) and enter what ingredients they have
+    <div class="row">
+
+      <!--Logout, Generate Grocery Lists, Update your ingredients-->
+      <div class="col-md-12">
+        <button class="btn btn-outline-dark" id="open-generate-grocery-list-modal" data-toggle="modal" data-target="#generateRecipeListModal">Select your ingredients</button>
+        <a class="btn btn-outline-danger" id="logout-btn" href="./index.html">Logout</a>
+      </div>
+
+      <!-- Generate Grocery List Modal -->
+      <div class="modal fade" id="generateRecipeListModal" tabindex="-1" role="dialog"
+        aria-labelledby="generateRecipeList" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalScrollableTitle">Select your ingredients</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div><h5>Select the ingredients you already have</h5></div>
+              <div id="ingredients-list">
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Generate Grocery List</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
 </main>
