@@ -8,6 +8,8 @@ auth.onAuthStateChanged(user => {
     userID=user.uid;
     setupUI(user);//conditionally render UI
     setUpYourRecipeList(userID);
+    loadYourIngredients(userID);
+    loadYourGroceryList(userID);
     db.collection("recipeList").onSnapshot(snapshot=>{ //get recipeList
       makeRecipeList(snapshot.docs);//render list
     },err=>{
@@ -33,7 +35,6 @@ const setupUI = (user) => {
 
       userEmail.innerHTML = "Logged in as : " + email;
       bio.innerHTML = doc.data().bio;
-      console.log(doc.data());
     });
     
     //toggle UI elements
@@ -51,8 +52,7 @@ const setupUI = (user) => {
 
 //logout method
 const logout = document.querySelector("#logout-link");
-logout.addEventListener("click", (e) => {
-  e.preventDefault();
+logout.addEventListener("click", () => {
   auth.signOut();
 });
 
@@ -114,10 +114,16 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
   btn.innerText = "Add to your recipe list";
   button.appendChild(btn);
 
-  console.log(userID);
-
     btn.addEventListener("click",()=>{//adds item to user's recipe collection from button click
      //put flag here to ensure only one of each recipe was added to the list
+     let flag=false;
+     if(yourRecipes.firstElementChild){
+       for (x = 0; x < yourRecipes.children.length; x++) {
+         if (yourRecipes.children[x].innerText.includes(data.name)){ flag=true};
+       }
+       debugger
+     }
+     if(!flag){
      db.collection("users").doc(userID).collection("yourRecipes").doc().set({
        name:database[pos].name,
        ingredients:database[pos].ingredients,
@@ -125,6 +131,10 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
        steps:database[pos].method,
        description: database[pos].description
      });
+    }
+    else{
+      alert("Recipe has already been added to your list");
+    }
    });
 
   data.ingredients.forEach(ing => { //renders each ingredient to the UI
@@ -207,13 +217,7 @@ const setUpYourRecipeList = (userID)=>{
 }
 
 const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of the page
-  let liTag = document.createElement("li");
-  liTag.classList.add("list-group-item");
-  liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
-
-  let deleteButton = document.createElement("button");
-  deleteButton.innerHTML="&times";
-  deleteButton.classList.add("close");
+  
 
   //deleting li from list
   deleteButton.addEventListener("click", (e) => {
@@ -233,14 +237,29 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
   yourRecipes.appendChild(liTag);
 }
 
+// const logoutButton = document.querySelector("#logout-btn");
+// logoutButton.addEventListener("click",()=>{
+//   auth.signOut();
+// })
 
-// const refreshList = ()=>{
-//   while(yourRecipes.firstElementChild){
-//     yourRecipes.remove(yourRecipes.firstElementChild);
-//   }
-// }
+const yourIngredientsList = document.querySelector("#yourIngredientsList");
+const yourGroceryList = document.querySelector("#yourGroceryList");
 
-const logoutButton = document.querySelector("#logout-btn");
-logoutButton.addEventListener("click",()=>{
-  auth.signOut();
-})
+const loadYourIngredients=(uid)=>{
+ db.collection("users").doc(uid).collection("yourIngredients").onSnapshot(snapshot=>{
+   snapshot.forEach(doc=>{
+     console.log(doc.data());
+
+    
+
+   });
+ });
+}
+
+const loadYourGroceryList=(uid)=>{
+  db.collection("users").doc(uid).collection("yourGroceryList").onSnapshot(snapshot=>{
+    snapshot.forEach(doc=>{
+      console.log(doc.data());
+    })
+  })
+}

@@ -127,12 +127,12 @@
 
  
   <section class="container-fluid colored-section">
-    <div class="row">
-
+    <div>
+      <h2>Time for a GroceryRun!</h2>
       <!--Logout, Generate Grocery Lists, Update your ingredients-->
-      <div class="col-md-12">
-        <button class="btn btn-outline-dark" id="open-generate-grocery-list-modal" data-toggle="modal" data-target="#generateRecipeListModal">Select your ingredients</button>
-        <a class="btn btn-outline-danger" id="logout-btn" href="./index.html">Logout</a>
+      <div class="" id="button-container"></div>
+        <button class="option-btn btn btn-dark" id="viewAllIngredients">See All ingredients</button>
+        <button class="option-btn btn btn-primary" id="open-generate-grocery-list-modal" data-toggle="modal" data-target="#generateRecipeListModal">Make your Grocery List</button>
       </div>
 
       <!-- Generate Grocery List Modal -->
@@ -141,20 +141,20 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalScrollableTitle">Select your ingredients</h5>
+              <h5 class="modal-title" id="GroceryListModalTitle">Making Grocery List ✅</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div><h5>Select the ingredients you already have</h5></div>
+              <div><h5>Select the ingredients you need to purchase!</h5></div>
               <div id="ingredients-list">
 
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Generate Grocery List</button>
+              <button type="button" class="btn btn-primary">Email Grocery List</button>
             </div>
           </div>
         </div>
@@ -162,7 +162,48 @@
 
     </div>
   </section>
+  
+  <section class="container-fluid" id="yourlists">
+    <div class="row">
 
+
+      <div class="col-lg-3" id="your-recipes">
+        <div class="card border-dark">
+          <div class="card-header">
+            Your Recipes
+          </div>
+          <ul class="list-group list-group-flush" id="your-recipe-list">
+      
+          </ul>
+          <div class="card-footer" id="your-recipe-footer"></div>
+        </div>
+      </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card" id="yourIngredients">
+          <div class="card-body">
+            <h5 class="card-title">Your Ingredients</h5>
+            <ul class="list-group list-group-flush" id="yourIngredientsList" style="text-align: left;">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card" id="yourGroceryItems">
+          <div class="card-body">
+            <h5 class="card-title">Your Grocery List</h5>
+            <ul class="list-group list-group-flush" id="yourGroceryList" style="text-align: left;">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </main>
 
   <!--Footer-->

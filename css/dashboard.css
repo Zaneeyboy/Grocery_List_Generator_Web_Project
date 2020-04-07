@@ -2,7 +2,6 @@
 /* Your Recipes */
 .card{
     padding:3%;
-
 }
 
 .list-group{
@@ -24,4 +23,9 @@
     max-width: 100%;
     height:auto;
     object-fit: contain;
+}
+
+.option-button {
+    margin: 5% 3% 5% 0;
+    padding:5%;
 }

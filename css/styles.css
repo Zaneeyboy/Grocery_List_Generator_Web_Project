@@ -92,6 +92,7 @@ p {
   }
 
   .title-image {
+    padding-top: 10px;
     position: static;
     transform: rotate(0deg);
   }

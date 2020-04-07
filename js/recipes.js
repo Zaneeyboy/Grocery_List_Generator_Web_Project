@@ -22,7 +22,7 @@ auth.onAuthStateChanged(user => {
 //signup
 const signupForm = document.querySelector("#signup-form");
 signupForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+   e.preventDefault();
 
   //get user info
   const email = signupForm['signup-email'].value;
@@ -175,7 +175,6 @@ const addToRecipeList=(name)=>{
     // }
     //set it so that you pull data from the variable database and set the content to the screen on click
     let pos = binarySearch(itemName, database);
-    console.log(pos, database[pos].name);
     setRecipe(database[pos]);
   });
   recipeList.appendChild(liTag);
