@@ -9,7 +9,7 @@ auth.onAuthStateChanged(user => {
     setupUI(user);//conditionally render UI
     setUpYourRecipeList(userID);
     loadYourIngredients(userID);
-    loadYourGroceryList(userID);
+    //loadYourGroceryList(userID);
     db.collection("recipeList").onSnapshot(snapshot=>{ //get recipeList
       makeRecipeList(snapshot.docs);//render list
     },err=>{
@@ -208,16 +208,22 @@ const setUpYourRecipeList = (userID)=>{
          addRecipe(change.doc, userID);
        }
        else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
-        //remove element from dom 
-        let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
-        yourRecipes.removeChild(li);
+         let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
+         yourRecipes.removeChild(li);
       }
     })
   });
 }
 
 const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of the page
-  
+
+  let liTag = document.createElement("li");
+  liTag.classList.add("list-group-item");
+  liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
+
+  let deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "&times";
+  deleteButton.classList.add("close");
 
   //deleting li from list
   deleteButton.addEventListener("click", (e) => {
@@ -242,6 +248,7 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
 //   auth.signOut();
 // })
 
+
 const yourIngredientsList = document.querySelector("#yourIngredientsList");
 const yourGroceryList = document.querySelector("#yourGroceryList");
 
@@ -256,10 +263,10 @@ const loadYourIngredients=(uid)=>{
  });
 }
 
-const loadYourGroceryList=(uid)=>{
-  db.collection("users").doc(uid).collection("yourGroceryList").onSnapshot(snapshot=>{
-    snapshot.forEach(doc=>{
-      console.log(doc.data());
-    })
-  })
-}
+// const loadYourGroceryList=(uid)=>{
+//   db.collection("users").doc(uid).collection("yourGroceryList").onSnapshot(snapshot=>{
+//     snapshot.forEach(doc=>{
+//       console.log(doc.data());
+//     })
+//   })
+// }

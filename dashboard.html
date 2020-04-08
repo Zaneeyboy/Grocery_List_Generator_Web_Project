@@ -147,8 +147,15 @@
               </button>
             </div>
             <div class="modal-body">
-              <div><h5>Select the ingredients you need to purchase!</h5></div>
+              <div><h5 class="modal-title">Select the ingredients you need to purchase!</h5></div>
               <div id="ingredients-list">
+
+                <div>
+                  <card>
+                    <heading></heading>
+                    <listgroup><list of all items></list></listgroup>                  
+                </card>                  
+                </div>
 
               </div>
             </div>
@@ -166,37 +173,29 @@
   <section class="container-fluid" id="yourlists">
     <div class="row">
 
-
-      <div class="col-lg-3" id="your-recipes">
-        <div class="card border-dark">
+      <div class="col-md-4">
+        <div class="card" id="yourGroceryItems">
           <div class="card-header">
-            Your Recipes
+            Your Grocery List
           </div>
-          <ul class="list-group list-group-flush" id="your-recipe-list">
-      
-          </ul>
-          <div class="card-footer" id="your-recipe-footer"></div>
-        </div>
-      </div>
-      </div>
-      
-      <div class="col-md-6">
-        <div class="card" id="yourIngredients">
           <div class="card-body">
-            <h5 class="card-title">Your Ingredients</h5>
-            <ul class="list-group list-group-flush" id="yourIngredientsList" style="text-align: left;">
+            <h5 class="card-title">Your Grocery List</h5>
+            <ul class="list-group list-group-flush" id="yourGroceryList" style="text-align: left;">
 
             </ul>
           </div>
         </div>
       </div>
-
-      <div class="col-md-6">
-        <div class="card" id="yourGroceryItems">
+      
+      <div class="col-md-4">
+        <div class="card" id="yourIngredients">
+          <div class="card-header">
+            Your Ingredients
+          </div>
           <div class="card-body">
-            <h5 class="card-title">Your Grocery List</h5>
-            <ul class="list-group list-group-flush" id="yourGroceryList" style="text-align: left;">
-
+            <h5 class="card-title">Your Ingredients</h5>
+            <ul class="list-group list-group-flush" id="yourIngredientsList" style="text-align: left;">
+      
             </ul>
           </div>
         </div>
