@@ -114,7 +114,7 @@
         </div>
       </div>
 
-      <div class="col-md-8 " id="step-container">
+      <card class="col-md-8 " id="step-container">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Steps</h5>
@@ -128,45 +128,12 @@
  
   <section class="container-fluid colored-section">
     <div>
-      <h2>Time for a GroceryRun!</h2>
-      <!--Logout, Generate Grocery Lists, Update your ingredients-->
-      <div class="" id="button-container"></div>
-        <button class="option-btn btn btn-dark" id="viewAllIngredients">See All ingredients</button>
-        <button class="option-btn btn btn-primary" id="open-generate-grocery-list-modal" data-toggle="modal" data-target="#generateRecipeListModal">Make your Grocery List</button>
-      </div>
-
-      <!-- Generate Grocery List Modal -->
-      <div class="modal fade" id="generateRecipeListModal" tabindex="-1" role="dialog"
-        aria-labelledby="generateRecipeList" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="GroceryListModalTitle">Making Grocery List ✅</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div><h5 class="modal-title">Select the ingredients you need to purchase!</h5></div>
-              <div id="ingredients-list">
-
-                <div>
-                  <card>
-                    <heading></heading>
-                    <listgroup><list of all items></list></listgroup>                  
-                </card>                  
-                </div>
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Email Grocery List</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <h1>Time for a GroceryRun!</h2>
+      <h3 class="instruction-text">Select the ingredients you have from the list below and generate the
+        list of ingredients you are missing in your Grocery List!
+      </h3>
+      <button class="option-btn btn btn-primary" data-toggle="modal" data-target="#generateRecipeListModal">Get your
+        Grocery List</button>
     </div>
   </section>
   
@@ -176,10 +143,9 @@
       <div class="col-md-6">
         <div class="card" id="allIngredients">
           <div class="card-header">
-            All Ingredients from your Recipe List
+            All Ingredients from the recipes in your Recipe List
           </div>
           <div class="card-body">
-            <h5 class="card-title">All Ingredients</h5>
             <ul class="list-group list-group-flush" id="allIngredientsList">
 
             </ul>
@@ -193,7 +159,6 @@
             Your Ingredients
           </div>
           <div class="card-body">
-            <h5 class="card-title">Your Ingredients</h5>
             <ul class="list-group list-group-flush" id="yourIngredientsList" >
       
             </ul>
@@ -203,6 +168,43 @@
 
     </div>
   </section>
+
+    <section class="container-fluid colored-section">
+      <div>
+        <h2>Time for a GroceryRun!</h2>
+        <!--Logout, Generate Grocery Lists, Update your ingredients-->
+        <div class="" id="button-container"></div>
+        <button class="option-btn btn btn-primary" data-toggle="modal"
+          data-target="#generateRecipeListModal">Get your Grocery List</button>
+          <a id="logout-button" class="option-btn btn btn-danger" href="./index.html">Logout</a>
+      </div>
+
+      <!-- Generate Grocery List Modal -->
+      <div class="modal fade" id="generateRecipeListModal" tabindex="-1" role="dialog"
+        aria-labelledby="generateRecipeList" aria-hidden="true">
+        <card class="modal-dialog modal-dialog-scrollable" role="document">
+          <card class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="GroceryListModalTitle">Your Grocery List ✅</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group list-group-flush">
+              
+              </ul>
+              
+          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Email Grocery List</button>
+            </div>
+          </card>
+        </card>
+      </card>
+      </div>
+      </section>
 </main>
 
   <!--Footer-->

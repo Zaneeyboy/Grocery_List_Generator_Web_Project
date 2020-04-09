@@ -7,8 +7,8 @@ auth.onAuthStateChanged(user => {
   if (user) { //user should  be able to acces this page if logged in and should be able to see recipeList and their grocery List
     userID=user.uid;
     setupUI(user);//conditionally render UI
-    setUpYourRecipeList(userID);
-    loadYourIngredients(userID);
+    setUpYourRecipeList(userID);//pulls recipes from yourRecipes collection in firestore and renders to the screen
+    loadYourIngredients(userID);////pulls ingredients owned by users from firestore for a recipe that the user has in their list and renders them to the screen
     //loadYourGroceryList(userID);
     db.collection("recipeList").onSnapshot(snapshot=>{ //get recipeList
       makeRecipeList(snapshot.docs);//render list
@@ -56,7 +56,7 @@ logout.addEventListener("click", () => {
   auth.signOut();
 });
 
-
+//getting elements from dashboard page
 const recipeList = document.querySelector("#recipe-list");
 const mealImg = document.querySelector("#meal-img");
 const mealTitle = document.querySelector("#meal-title");
@@ -91,7 +91,7 @@ const addToRecipeList = (name) => {
   let liTag = document.createElement("li");
   liTag.classList.add("list-group-item");
   liTag.innerHTML = name;
-  liTag.addEventListener("click", () => {
+  liTag.addEventListener("click", () => {//when item is clicked, the information regarding the rcipe is rendered to the screen
     var itemName = liTag.innerHTML;
     let pos = binarySearch(itemName, database);
     setRecipe(database[pos]);
@@ -106,7 +106,7 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
   let pos = binarySearch(data.name,database);
 
   removeIngredientsAndSteps(); //clears ingredients and steps so another recipe can be rendered to the page
-  removeAddToRecipesButton();
+  removeAddToRecipesButton();//clears previously rendered button from the dom 
 
   let btn = document.createElement("button");
   btn.classList.add("btn");
@@ -122,7 +122,7 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
          if (yourRecipes.children[x].innerText.includes(data.name)){ flag=true};
        }
      }
-     if(!flag){
+     if(!flag){//recipe not yet added to list so it will be written to firebase collection
      db.collection("users").doc(userID).collection("yourRecipes").doc().set({
        name:database[pos].name,
        ingredients:database[pos].ingredients,
@@ -130,9 +130,6 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
        steps:database[pos].method,
        description: database[pos].description
      });
-
-     
-
     }
     else{
       alert("Recipe has already been added to your list");
@@ -180,7 +177,6 @@ function binarySearch(value, database) {
   let position = -1;
   let found = false;
   let middle;
-
   while (found === false && first <= last) {
     middle = Math.floor((first + last) / 2);
     if (value.localeCompare(database[middle].name) === 0) {
@@ -201,7 +197,7 @@ const yourRecipeFooter = document.querySelector("#your-recipe-footer");
 
 //Gets Recipes from yourRecipes collection and renders them to the UI
 const setUpYourRecipeList = (userID)=>{
-  db.collection("users").doc(userID).collection("yourRecipes").orderBy("name").onSnapshot(snapshot => {
+  db.collection("users").doc(userID).collection("yourRecipes").orderBy("name").onSnapshot(snapshot => {//gets a snapshot of the collection
      let changes = snapshot.docChanges();
 
      changes.forEach(change=>{
@@ -224,22 +220,27 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
   liTag.classList.add("list-group-item");
   liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
 
-  let deleteButton = document.createElement("button");
+  let deleteButton = document.createElement("button");//when clicked will remove item from list
   deleteButton.innerHTML = "&times";
   deleteButton.classList.add("close");
 
   //deleting li from list
-  deleteButton.addEventListener("click", (e) => {
+  deleteButton.addEventListener("click", (e) => {//onclick event triggers removal of item from dom and firebase collection
     e.stopPropagation();
     let id = e.target.parentElement.getAttribute("data-id");
-    db.collection("users").doc(userID).collection("yourRecipes").doc(id).delete();
+    db.collection("users").doc(userID).collection("yourRecipes").doc(id).delete();//deleted item from yourRecipes collection
     let li = yourRecipes.querySelector("[data-id=" + id + "]");
-     yourRecipes.removeChild(li);
+    yourRecipes.removeChild(li);
 
-    //need to put code here to remove ingredeint from ingredient list when deleted
-    db.collection("users").doc(userID).collection("yourIngredients").doc(id).delete();
+    //need to put code here to remove ingredients from ingredient list when deleted
     let item = allIngredientsList.querySelector("[data-id="+id+"]");
     allIngredientsList.removeChild(item);
+
+     db.collection("users").doc(userID).collection("yourIngredients").where("id","==",id).get().then(snapshot=>{
+      snapshot.docs.forEach(doc=>{
+        db.collection("users").doc(userID).collection("yourIngredients").doc(doc.id).delete();
+      })
+    });
   });
 
   let text = document.createElement("span");
@@ -250,12 +251,6 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
 
   yourRecipes.appendChild(liTag);
 }
-
-// const logoutButton = document.querySelector("#logout-btn");
-// logoutButton.addEventListener("click",()=>{
-//   auth.signOut();
-// })
-
 
 const yourIngredientsList = document.querySelector("#yourIngredientsList");
 const allIngredientsList = document.querySelector("#allIngredientsList");
@@ -268,6 +263,7 @@ function populateAllIngredients(doc,userID){
   let recipeName = document.createElement("h5");
   recipeName.innerHTML = doc.data().name;
   recipeName.classList.add("card-title");
+  recipeName.classList.add("recipe-name");
 
   liTag.appendChild(recipeName);
   
@@ -277,17 +273,8 @@ function populateAllIngredients(doc,userID){
 
   liTag.appendChild(ul);
 
-
-  // Creates reference to firestore and creates new doc with id from yourRecipeList
-  let ingDB = db.collection("users").doc(userID).collection("yourIngredients").doc(doc.id);
-  ingDB.set({
-    name: doc.data().name, //sets the name of the recipe
-    ingredients:[]
-  });
-
-
   doc.data().ingredients.forEach(ing=>{
-    //Creates tags for ingredient name and button for adding ingredient to firebase
+    //Creates tags for ingredient name and button for adding ingredient to firebase collection
     let p = document.createElement("span");
     p.innerHTML = ing;
 
@@ -299,13 +286,15 @@ function populateAllIngredients(doc,userID){
     i.classList.add("fa-plus-circle");
 
     i.addEventListener("click", (e) => {//when clicked adds the ingredient to  the yourIngredients collection
-      e.preventDefault();
-      console.log("button clicked",ing);      
-      ingDB.update({
-        ingredients: firebase.firestore.FieldValue.arrayUnion(ing)
+      e.preventDefault();    
+      console.log("clicked",ing);
+      // // Creates reference to firestore and creates new doc with id from yourRecipeList
+      db.collection("users").doc(userID).collection("yourIngredients").doc().set({
+        id:doc.id,
+        name:doc.data().name,
+        ingredient:ing
       });
     });
-
 
     //Appending children tags of Ingredient data to parent element
     li.appendChild(i);
@@ -318,14 +307,49 @@ function populateAllIngredients(doc,userID){
 }
 
 const loadYourIngredients=(uid)=>{
- db.collection("users").doc(uid).collection("yourIngredients").onSnapshot(snapshot=>{
-   snapshot.forEach(doc=>{
-     console.log(doc.data());
+ db.collection("users").doc(uid).collection("yourIngredients").orderBy("name").onSnapshot(snapshot=>{
+   let changes=snapshot.docChanges();
 
-    
-
+   changes.forEach(change => {
+     if (change.type == "added") {//gets change type and renders element to the page if type is added
+       //create element and render to the screen
+        populateYourIngredients(change.doc,uid); //creates elements to render recipe ingredients to the screen
+     }
+     if(change.type=="removed"){
+       let item = yourIngredientsList.querySelector("[data-id=" + change.doc.id + "]");
+       yourIngredientsList.removeChild(item);
+     }
    });
  });
+}
+
+const populateYourIngredients = (doc,uid)=>{//takes data pulled from firebase youIngredients collection and renders this to the dom
+
+  let liTag = document.createElement("li");
+  liTag.classList.add("list-group-item");
+  liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
+
+  let p = document.createElement("span");
+  p.innerHTML =doc.data().ingredient;
+
+  let div = document.createElement("div");
+  div.classList.add("list-group-item");
+
+  let i = document.createElement("i");
+  i.classList.add("fas");
+  i.classList.add("fa-minus-circle");
+
+  i.addEventListener("click",(e)=>{
+    e.preventDefault();
+    db.collection("users").doc(uid).collection("yourIngredients").doc(doc.id).delete();
+    
+  });
+
+  div.appendChild(i);
+  div.appendChild(p);
+  liTag.appendChild(div);
+  // //Appending children tag of recipe and it's ingredients to parent element
+   yourIngredientsList.appendChild(liTag);
 }
 
 // const loadYourGroceryList=(uid)=>{
@@ -335,3 +359,8 @@ const loadYourIngredients=(uid)=>{
 //     })
 //   })
 // }
+
+const logoutButton = document.querySelector("#logout-button");
+logoutButton.addEventListener("click", () => {
+  auth.signOut();
+});

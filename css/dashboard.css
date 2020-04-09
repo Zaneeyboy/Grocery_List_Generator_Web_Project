@@ -31,9 +31,28 @@
 }
 
 .fa-plus-circle:hover{
- color:#0069D9;  
+ color:#0275d8;
 }
 
 .fa-plus-circle{
     margin-right:1%;
+}
+
+.fa-minus-circle:hover{
+    color:red;
+}
+
+.fa-minus-circle{
+    margin-right:1%;
+}
+
+.recipe-name{
+    color:#0275d8;
+}
+
+.instruction-text{
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-family: 'Montserrat-Light',
+    sans-serif;
 }
