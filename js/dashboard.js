@@ -121,7 +121,6 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
        for (x = 0; x < yourRecipes.children.length; x++) {
          if (yourRecipes.children[x].innerText.includes(data.name)){ flag=true};
        }
-       debugger
      }
      if(!flag){
      db.collection("users").doc(userID).collection("yourRecipes").doc().set({
@@ -131,6 +130,9 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
        steps:database[pos].method,
        description: database[pos].description
      });
+
+     
+
     }
     else{
       alert("Recipe has already been added to your list");
@@ -206,11 +208,12 @@ const setUpYourRecipeList = (userID)=>{
        if (change.type == "added") {//gets change type and renders element to the page if type is added
          //create element and render to the screen
          addRecipe(change.doc, userID);
+         populateAllIngredients(change.doc,userID);
        }
-       else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
-         let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
-         yourRecipes.removeChild(li);
-      }
+      //  else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
+      //    let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
+      //    yourRecipes.removeChild(li);
+      // }
     })
   });
 }
@@ -230,8 +233,13 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
     e.stopPropagation();
     let id = e.target.parentElement.getAttribute("data-id");
     db.collection("users").doc(userID).collection("yourRecipes").doc(id).delete();
-      let li = yourRecipes.querySelector("[data-id=" + id + "]");
-      yourRecipes.removeChild(li);
+    let li = yourRecipes.querySelector("[data-id=" + id + "]");
+     yourRecipes.removeChild(li);
+
+    //need to put code here to remove ingredeint from ingredient list when deleted
+    db.collection("users").doc(userID).collection("yourIngredients").doc(id).delete();
+    let item = allIngredientsList.querySelector("[data-id="+id+"]");
+    allIngredientsList.removeChild(item);
   });
 
   let text = document.createElement("span");
@@ -250,7 +258,64 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
 
 
 const yourIngredientsList = document.querySelector("#yourIngredientsList");
-const yourGroceryList = document.querySelector("#yourGroceryList");
+const allIngredientsList = document.querySelector("#allIngredientsList");
+
+function populateAllIngredients(doc,userID){
+  let liTag = document.createElement("li");
+  liTag.classList.add("list-group-item");
+  liTag.setAttribute("data-id", doc.id);//setting id to id of document in firebase
+
+  let recipeName = document.createElement("h5");
+  recipeName.innerHTML = doc.data().name;
+  recipeName.classList.add("card-title");
+
+  liTag.appendChild(recipeName);
+  
+  let ul = document.createElement("ul");
+  ul.classList.add("list-group");
+  ul.classList.add("list-group-flush");
+
+  liTag.appendChild(ul);
+
+
+  // Creates reference to firestore and creates new doc with id from yourRecipeList
+  let ingDB = db.collection("users").doc(userID).collection("yourIngredients").doc(doc.id);
+  ingDB.set({
+    name: doc.data().name, //sets the name of the recipe
+    ingredients:[]
+  });
+
+
+  doc.data().ingredients.forEach(ing=>{
+    //Creates tags for ingredient name and button for adding ingredient to firebase
+    let p = document.createElement("span");
+    p.innerHTML = ing;
+
+    let li=document.createElement("li");
+    li.classList.add("list-group-item");
+
+    let i = document.createElement("i");
+    i.classList.add("fas");
+    i.classList.add("fa-plus-circle");
+
+    i.addEventListener("click", (e) => {//when clicked adds the ingredient to  the yourIngredients collection
+      e.preventDefault();
+      console.log("button clicked",ing);      
+      ingDB.update({
+        ingredients: firebase.firestore.FieldValue.arrayUnion(ing)
+      });
+    });
+
+
+    //Appending children tags of Ingredient data to parent element
+    li.appendChild(i);
+    li.appendChild(p);
+    ul.appendChild(li);
+  });
+  
+  //Appending children tag of recipe and it's ingredients to parent element
+  allIngredientsList.appendChild(liTag);
+}
 
 const loadYourIngredients=(uid)=>{
  db.collection("users").doc(uid).collection("yourIngredients").onSnapshot(snapshot=>{

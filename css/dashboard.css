@@ -29,3 +29,11 @@
     margin: 5% 3% 5% 0;
     padding:5%;
 }
+
+.fa-plus-circle:hover{
+ color:#0069D9;  
+}
+
+.fa-plus-circle{
+    margin-right:1%;
+}
