@@ -132,15 +132,13 @@
       <h3 class="instruction-text">Select the ingredients you have from the list below and generate the
         list of ingredients you are missing in your Grocery List!
       </h3>
-      <button class="option-btn btn btn-primary" data-toggle="modal" data-target="#generateRecipeListModal">Get your
-        Grocery List</button>
     </div>
   </section>
   
   <section class="container-fluid" id="yourlists">
     <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <div class="card" id="allIngredients">
           <div class="card-header">
             All Ingredients from the recipes in your Recipe List
@@ -153,7 +151,7 @@
         </div>
       </div>
       
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <div class="card" id="yourIngredients">
           <div class="card-header">
             Your Ingredients
@@ -174,7 +172,7 @@
         <h2>Time for a GroceryRun!</h2>
         <!--Logout, Generate Grocery Lists, Update your ingredients-->
         <div class="" id="button-container"></div>
-        <button class="option-btn btn btn-primary" data-toggle="modal"
+        <button id="generategroceryList" class="option-btn btn btn-primary" data-toggle="modal"
           data-target="#generateRecipeListModal">Get your Grocery List</button>
           <a id="logout-button" class="option-btn btn btn-danger" href="./index.html">Logout</a>
       </div>
@@ -191,14 +189,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <ul class="list-group list-group-flush">
+              <ul class="list-group list-group-flush" id="yourGroceryList">
               
               </ul>
               
           </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Email Grocery List</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
           </card>
         </card>

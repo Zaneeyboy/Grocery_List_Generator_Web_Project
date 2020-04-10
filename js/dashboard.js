@@ -130,6 +130,11 @@ function setRecipe(data) { //Renders a recipe's data by creating html elements a
        steps:database[pos].method,
        description: database[pos].description
      });
+
+       db.collection("users").doc(userID).collection("yourGroceryList").doc(database[pos].name).set({
+         name: database[pos].name,
+         ingredients: database[pos].ingredients
+       });
     }
     else{
       alert("Recipe has already been added to your list");
@@ -206,11 +211,12 @@ const setUpYourRecipeList = (userID)=>{
          addRecipe(change.doc, userID);
          populateAllIngredients(change.doc,userID);
        }
-      //  else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
+       // else if (change.type == "removed") {//gets change type and removes element to the page if type is removed
       //    let li = yourRecipes.querySelector("[data-id=" + change.doc.id + "]");
       //    yourRecipes.removeChild(li);
+
       // }
-    })
+    });
   });
 }
 
@@ -239,8 +245,10 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
      db.collection("users").doc(userID).collection("yourIngredients").where("id","==",id).get().then(snapshot=>{
       snapshot.docs.forEach(doc=>{
         db.collection("users").doc(userID).collection("yourIngredients").doc(doc.id).delete();
-      })
+      });
     });
+
+    db.collection("users").doc(userID).collection("yourGroceryList").doc(doc.data().name).delete();
   });
 
   let text = document.createElement("span");
@@ -250,6 +258,7 @@ const addRecipe = (doc,userID)=>{//adds a recipe to the your recipes section of 
   liTag.appendChild(text);
 
   yourRecipes.appendChild(liTag);
+
 }
 
 const yourIngredientsList = document.querySelector("#yourIngredientsList");
@@ -287,12 +296,15 @@ function populateAllIngredients(doc,userID){
 
     i.addEventListener("click", (e) => {//when clicked adds the ingredient to  the yourIngredients collection
       e.preventDefault();    
-      console.log("clicked",ing);
       // // Creates reference to firestore and creates new doc with id from yourRecipeList
       db.collection("users").doc(userID).collection("yourIngredients").doc().set({
         id:doc.id,
         name:doc.data().name,
         ingredient:ing
+      });
+
+      db.collection('users').doc(userID).collection("yourGroceryList").doc(doc.data().name).update({
+        ingredients: firebase.firestore.FieldValue.arrayRemove(ing)
       });
     });
 
@@ -314,6 +326,7 @@ const loadYourIngredients=(uid)=>{
      if (change.type == "added") {//gets change type and renders element to the page if type is added
        //create element and render to the screen
         populateYourIngredients(change.doc,uid); //creates elements to render recipe ingredients to the screen
+
      }
      if(change.type=="removed"){
        let item = yourIngredientsList.querySelector("[data-id=" + change.doc.id + "]");
@@ -342,7 +355,10 @@ const populateYourIngredients = (doc,uid)=>{//takes data pulled from firebase yo
   i.addEventListener("click",(e)=>{
     e.preventDefault();
     db.collection("users").doc(uid).collection("yourIngredients").doc(doc.id).delete();
-    
+
+    db.collection('users').doc(userID).collection("yourGroceryList").doc(doc.data().name).update({
+      ingredients: firebase.firestore.FieldValue.arrayUnion(doc.data().ingredient)
+    });
   });
 
   div.appendChild(i);
@@ -352,13 +368,35 @@ const populateYourIngredients = (doc,uid)=>{//takes data pulled from firebase yo
    yourIngredientsList.appendChild(liTag);
 }
 
-// const loadYourGroceryList=(uid)=>{
-//   db.collection("users").doc(uid).collection("yourGroceryList").onSnapshot(snapshot=>{
-//     snapshot.forEach(doc=>{
-//       console.log(doc.data());
-//     })
-//   })
-// }
+let generateButton = document.querySelector("#generategroceryList");
+let yourGroceryList = document.querySelector("#yourGroceryList");
+generateButton.addEventListener("click",()=>{
+  db.collection("users").doc(userID).collection("yourGroceryList").get().then((doc)=>{
+    if(doc.empty){
+    console.log("Document does not exist");
+    alert("You need to add recipes to your list before you generate your grocery list");
+    }
+    else{
+      doc.forEach(item=>{
+        console.log(item.data());
+        populateModal(item);
+      });
+    }
+  }).catch(e=>{
+    console.log(e.message);
+  });
+
+});
+
+function populateModal(doc){
+  doc.data().ingredients.forEach(ing=>{
+    let liTag = document.createElement("li");
+    liTag.classList.add("list-group-item");
+    liTag.innerHTML = ing;
+
+    yourGroceryList.appendChild(liTag);
+  });
+}
 
 const logoutButton = document.querySelector("#logout-button");
 logoutButton.addEventListener("click", () => {
