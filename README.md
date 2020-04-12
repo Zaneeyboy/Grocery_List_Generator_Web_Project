@@ -1,14 +1,14 @@
-#GroceryRun
+GroceryRun
 This project was built as part of a project for INFO 2602. It focuses on generating a grocery list for ingredients a user is missing after having selected recipes on the application and their corresponding ingredients.
 
-##Getting Started
+Getting Started
 To get started, you should create an account on the application and then proceed to the Dashboard page to interact with different recipes and their ingredients.
 
-##Built With 
+Built With 
 Firebase - Authentication, Database
 HTML, CSS and JS - User Interface
 
-##Contributing
+Contributing
 
 816117713 - Harish Singh
 816009832 - Zane Mohammed
