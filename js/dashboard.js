@@ -90,6 +90,7 @@ const makeRecipeList = (data) => { //creates recipe list
 const addToRecipeList = (name) => {
   let liTag = document.createElement("li");
   liTag.classList.add("list-group-item");
+  liTag.classList.add("hand-icon");
   liTag.innerHTML = name;
   liTag.addEventListener("click", () => {//when item is clicked, the information regarding the rcipe is rendered to the screen
     var itemName = liTag.innerHTML;

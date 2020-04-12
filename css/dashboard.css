@@ -56,3 +56,18 @@
     font-family: 'Montserrat-Light',
     sans-serif;
 }
+
+i:hover{
+    cursor:pointer;
+}
+
+.hand-icon:hover{
+    cursor:pointer;
+}
+
+.close{
+    color:red;
+}
+.close:hover{
+    cursor:pointer;
+}
